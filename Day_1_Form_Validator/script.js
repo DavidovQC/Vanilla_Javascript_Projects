@@ -40,7 +40,6 @@ function checkRequired(inputArr){
             showSuccess(input);
         }
     })
-    
 }
 
 function getFieldName(input){
@@ -50,7 +49,7 @@ function getFieldName(input){
     else return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
-checkLength(input, min, max){
+function checkLength(input, min, max){
     if(input.value.length < min){
         showError(input, getFieldName(input) + " is too short");
     }
