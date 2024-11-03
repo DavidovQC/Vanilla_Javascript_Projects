@@ -9,11 +9,19 @@ form.addEventListener('submit', function(e){
     checkRequired([username, email, password, password2]);
     checkLength(username, 3, 5);
     checkLength(password, 6, 25);
+    checkEmail(email);
+    checkMatch(password, password2);
 })
 
-function isValidEmail(email){
+function checkEmail(input){
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    return re.test(String(email.value).toLowerCase());
+    if(re.test(String(email.value).toLowerCase())){
+        showSuccess(input);
+    }
+
+    else{
+        showError(input, "Please enter a valid " + getFieldName(input))
+    }
 }
 
 function showError(input, msg){
@@ -51,10 +59,16 @@ function getFieldName(input){
 
 function checkLength(input, min, max){
     if(input.value.length < min){
-        showError(input, getFieldName(input) + " is too short");
+        showError(input, getFieldName(input) + " must be more than " + String(min) + " characters");
     }
 
     if(input.value.length > max){
-        showError(input, getFieldName(input) + " is too long");
+        showError(input, getFieldName(input) + " must be less than " + String(max) + " characters");
+    }
+}
+
+function checkMatch(input1, input2){
+    if(input1.value !== input2.value){
+        showError(input2, "Passwords do not match");
     }
 }
